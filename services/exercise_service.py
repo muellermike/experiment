@@ -3,16 +3,6 @@ from datalayers.experiment_datalayer import load_experiment_exercise, load_user_
 from models.exercise_answer import ExerciseAnswer
 from models.user import User
 
-def get_exercises(answer: str, number_of_exercises: int):
-    """
-    gets a random ordered list of exercises which all have the correct answer provided as parameter
-    """
-    return ""    
-    # loading all the possible exercises
-    #all_exercises = load_random_exercises(answer, number_of_exercises)
-    
-    #return all_exercises
-
 def get_experiment_exercises(number_of_ex: int, experiment_id: int):
     """
     loads a defined number of randomized experiment questions
@@ -22,11 +12,7 @@ def get_experiment_exercises(number_of_ex: int, experiment_id: int):
     text_ex = get_experiment_exercises_by_type("text", experiment_id, number_of_ex)
     image_ex = get_experiment_exercises_by_type("image", experiment_id, number_of_ex)
 
-    print(len(text_ex))
-
-    print(list(zip(text_ex, image_ex)))
     return {"text": text_ex, "image": image_ex}
-    # return np.column_stack((text_ex, image_ex))
 
 def get_experiment_exercises_by_type(exercise_type: str, experiment_id: int, num_of_ex: int):
     # load random exercises by type

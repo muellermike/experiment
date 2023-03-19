@@ -21,8 +21,8 @@ def store_experiment_participation(user_experiment: Experiment, experiment_id: i
     """
     sql = "INSERT INTO ExperimentParticipation (ExperimentFK, OriginID, Start) VALUES (%s, %s, %s)"
     
-    #userexperiment_id = execute(sql, (experiment_id, user_experiment.origin_id, user_experiment.start), "INSERT")
-    return 2
+    userexperiment_id = execute(sql, (experiment_id, user_experiment.origin_id, user_experiment.start), "INSERT")
+
     return userexperiment_id
 
 def store_experiment_exercises(exercises, experiment: Experiment):

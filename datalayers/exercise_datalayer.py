@@ -21,16 +21,12 @@ def load_random_exercises(exercise_type: str, experiment_id: int, number_of_exer
     print("load random exercises")
     # load n exercises of type exercise_type in a random order
     if(exercise_type == "text"):
-        print("Load text exercises")
         sql = "SELECT PK FROM Text WHERE ExperimentFK = %s ORDER BY RAND() LIMIT %s"
     elif (exercise_type == "image"):
-        print("Load image exercises")
         sql = "SELECT PK FROM Image WHERE ExperimentFK = %s ORDER BY RAND() LIMIT %s"
     else:
         print("no such type")
-    print(sql)
-    print(experiment_id)
-    print(number_of_exercises)
+    
     loaded_exercises = execute(sql, (experiment_id, int(number_of_exercises)), "SELECT")
-    print(loaded_exercises)
+
     return loaded_exercises
