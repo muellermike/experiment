@@ -22,6 +22,7 @@ def update_exercise():  # noqa: E501
     """
     body = ExerciseAnswer.from_dict(request.get_json())  # noqa: E501
 
+    print(body)
     result = update_exercise_answer(body)
     
     return jsonify(result)

@@ -15,7 +15,7 @@ class Experiment(Model):
     Do not edit the class manually.
     """
 
-    def __init__(self, id: int=None, start: datetime=None, end: datetime=None, user: int=None, image_time: str=None, experiment_name: str=None):  # noqa: E501
+    def __init__(self, id: int=None, start: datetime=None, end: datetime=None, origin_id: str=None, image_time: str=None, experiment_name: str=None, experiment_id: int=None):  # noqa: E501
         """Experiment - a model defined in Swagger
 
         :param id: The id of this Experiment.  # noqa: E501
@@ -31,26 +31,29 @@ class Experiment(Model):
             'id': int,
             'start': datetime,
             'end': datetime,
-            'user': int,
+            'origin_id': str,
             'image_time': str,
-            'experiment_name': str
+            'experiment_name': str,
+            'experiment_id': int
         }
 
         self.attribute_map = {
             'id': 'id',
             'start': 'start',
             'end': 'end',
-            'user': 'user',
+            'origin_id': 'originId',
             'image_time': 'imageTime',
-            'experiment_name': 'experimentName'
+            'experiment_name': 'experimentName',
+            'experiment_id': 'experimentId'
         }
 
         self._id = id
         self._start = start
         self._end = end
-        self._user = user
+        self._origin_id = origin_id
         self._image_time = image_time
         self._experiment_name = experiment_name
+        self._experiment_id = experiment_id
 
     @classmethod
     def from_dict(cls, dikt) -> 'Experiment':
@@ -129,25 +132,25 @@ class Experiment(Model):
         self._end = end
 
     @property
-    def user(self) -> int:
+    def origin_id(self) -> str:
         """Gets the user of this Experiment.
 
 
         :return: The user of this Experiment.
         :rtype: int
         """
-        return self._user
+        return self._origin_id
 
-    @user.setter
-    def user(self, user: int):
-        """Sets the user of this Experiment.
+    @origin_id.setter
+    def origin_id(self, origin_id: str):
+        """Sets the origin_id of this Experiment.
 
 
-        :param user: The user of this Experiment.
-        :type user: int
+        :param origin_id: The origin_id of this Experiment.
+        :type origin_id: str
         """
 
-        self._user = user
+        self._origin_id = origin_id
 
     @property
     def image_time(self) -> str:
@@ -190,3 +193,24 @@ class Experiment(Model):
         """
 
         self._experiment_name = experiment_name
+
+    @property
+    def experiment_id(self) -> str:
+        """Gets the experiment_id of this Experiment.
+
+
+        :return: The experiment_id of this Experiment.
+        :rtype: str
+        """
+        return self._experiment_id
+
+    @experiment_id.setter
+    def experiment_id(self, experiment_id: str):
+        """Sets the experiment_id of this Experiment.
+
+
+        :param user: The experiment_id of this Experiment.
+        :type user: str
+        """
+
+        self._experiment_id = experiment_id

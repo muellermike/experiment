@@ -9,8 +9,8 @@ from services.experiment_service import create_experiment, update_experiment
 
 experiments_endpoint = Blueprint('experiments_endpoint', __name__)
 
-@experiments_endpoint.route('/experiments', methods=['POST'])
-def add_experiment():  # noqa: E501
+@experiments_endpoint.route('/experiment-participations', methods=['POST'])
+def add_experiment_participation():  # noqa: E501
     """Add a new experiment to a user
 
      # noqa: E501
@@ -22,7 +22,6 @@ def add_experiment():  # noqa: E501
     """
     print(request.get_json())
     body = Experiment.from_dict(request.get_json())  # noqa: E501
-    
     result = create_experiment(body)
 
     if not result:
@@ -30,7 +29,7 @@ def add_experiment():  # noqa: E501
 
     return jsonify(result)
 
-@experiments_endpoint.route('/experiments/<experiment_id>', methods=['PUT'])
+@experiments_endpoint.route('/experiment-participations/<experiment_id>', methods=['PUT'])
 def update_experiment_endpoint(experiment_id):
     # it is only allowed to update the endtime of the experiment
     body = Experiment.from_dict(request.get_json())
@@ -46,8 +45,8 @@ def update_experiment_endpoint(experiment_id):
     result = True
     return jsonify(result)
 
-@experiments_endpoint.route('/experiments/<experiment_id>/<user_id>/exercises/next', methods=['GET'])
-def get_next_exercise(experiment_id, user_id):  # noqa: E501
+@experiments_endpoint.route('/experiment-participations/<experiment_id>/exercises/next', methods=['GET'])
+def get_next_exercise(experiment_id):  # noqa: E501
     """Get next exercise for this specific experiment of this user
 
      # noqa: E501
@@ -58,7 +57,7 @@ def get_next_exercise(experiment_id, user_id):  # noqa: E501
     :rtype: Exercise
     """
 
-    result = get_next_random_exercise(experiment_id, user_id)
+    result = get_next_random_exercise(experiment_id)
 
     # if result is None than there is no experiment for the experimentid and userid
     if result is None:
@@ -67,12 +66,18 @@ def get_next_exercise(experiment_id, user_id):  # noqa: E501
     elif not result:
         return ('', 204)
     
+    print(result)
     # bring response in the required format
     exercise = {
-        "id": result["PK"],
-        "mimeType": result["Mimetype"],
-        "question": result["Question"],
-        "encodedString": result["EncodedString"]
+        "text": {
+            "textId": result["TextID"],
+            "text": result["Text"],
+        },
+        "image": {
+            "imageId": result["ImageID"],
+            "mimeType": result["Mimetype"],
+            "encodedString": result["EncodedString"]
+        }
     }
 
     return jsonify(exercise)

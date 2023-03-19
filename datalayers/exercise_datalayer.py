@@ -1,28 +1,36 @@
 from datalayers.db import execute
 
-def load_next_random_exercise(experimentId: int, userId: int):
+def load_next_random_exercise(experimentId: int):
     """
     Load the next random exercise which has not been answered yet.
     """
-    sql = "SELECT ex.PK, Question, Mimetype, EncodedString FROM Exercise as ex JOIN ExperimentExercise as ee ON ex.PK = ee.ExerciseFK JOIN Experiment as e ON ee.ExperimentFK = e.PK WHERE ee.ExperimentFK = %s AND e.UserFK = %s AND ee.Answer IS NULL ORDER BY RAND() LIMIT 1"
+    sql = "SELECT t.PK as TextID, t.Text, i.PK as ImageID, i.Mimetype, i.EncodedString FROM ExperimentParticipationExercise as epe JOIN Text as t ON epe.TextFK = t.PK JOIN Image as i ON epe.ImageFK = i.PK WHERE epe.ExperimentParticipationFK = %s AND epe.Answer IS NULL ORDER BY RAND() LIMIT 1"
     
-    loaded_exercise = execute(sql, (experimentId, userId), "SELECT")
+    loaded_exercise = execute(sql, (experimentId), "SELECT")
     
     if not loaded_exercise:
         return None
 
     return loaded_exercise[0]
 
-def load_random_exercises(answer: str, number_of_exercises: int):
+def load_random_exercises(exercise_type: str, experiment_id: int, number_of_exercises: int):
     """
-    Load all exercises which have the correct answer provided as parameter
+    Load a number of random exercises
     """
-    if (answer == "left"):
-        sql = "SELECT PK FROM Exercise WHERE CorrectAnswer = %s AND PK NOT IN (3,7,8) ORDER BY RAND() LIMIT %s"
+    sql = ""
+    print("load random exercises")
+    # load n exercises of type exercise_type in a random order
+    if(exercise_type == "text"):
+        print("Load text exercises")
+        sql = "SELECT PK FROM Text WHERE ExperimentFK = %s ORDER BY RAND() LIMIT %s"
+    elif (exercise_type == "image"):
+        print("Load image exercises")
+        sql = "SELECT PK FROM Image WHERE ExperimentFK = %s ORDER BY RAND() LIMIT %s"
     else:
-        # load n exercises which have the answer provided as parameter in a random order
-        sql = "SELECT PK FROM Exercise WHERE CorrectAnswer = %s ORDER BY RAND() LIMIT %s"
-
-    loaded_exercises = execute(sql, (answer, int(number_of_exercises)), "SELECT")
-    
+        print("no such type")
+    print(sql)
+    print(experiment_id)
+    print(number_of_exercises)
+    loaded_exercises = execute(sql, (experiment_id, int(number_of_exercises)), "SELECT")
+    print(loaded_exercises)
     return loaded_exercises

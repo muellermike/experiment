@@ -6,9 +6,7 @@ def add_user(user: User):
     """
     checks all parameters and adds user to the storage
     """
-    # before storing the user both recordings (age and gender) have to be saved
-
-    # after both recordings have been stored, the user itself can be stored with the corresponding foreign keys.
+    # the user can be stored with the corresponding foreign keys.
     result = store_user(user)
     return result
 

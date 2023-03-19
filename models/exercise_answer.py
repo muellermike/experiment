@@ -11,24 +11,23 @@ import util
 
 class ExerciseAnswer(Model):
 
-    def __init__(self, answer: str=None, full_text_answer: str=None, experiment_id: int=None, user_id: int=None, exercise_id: int=None, time: datetime=None, time_to_click: int=None, time_to_submit: int=None):  # noqa: E501
+    def __init__(self, answer: str=None, experiment_id: int=None, text_id: int=None, image_id: int=None, time: datetime=None, time_to_click: int=None, time_to_submit: int=None):  # noqa: E501
         """ExerciseAnswer - a model defined in Swagger
 
         :param answer: The answer of this Experiment Exercise.  # noqa: E501
         :type answer: string
         :param experiment_id: The experiment_id of this Recording.  # noqa: E501
         :type experiment_id: int
-        :param user_id: The user_id of this Recording.  # noqa: E501
-        :type user_id: int
-        :param exercise_id: The exercise_id of this Recording.  # noqa: E501
-        :type exercise_id: int
+        :param image_id: The image_id of this Recording.  # noqa: E501
+        :type image_id: int
+        :param text_id: The text_id of this Recording.  # noqa: E501
+        :type text_id: int
         """
         self.swagger_types = {
             'answer': str,
-            'full_text_answer': str,
             'experiment_id': int,
-            'user_id': int,
-            'exercise_id': int,
+            'text_id': int,
+            'image_id': int,
             'time': datetime,
             'time_to_click': int,
             'time_to_submit': int
@@ -36,20 +35,18 @@ class ExerciseAnswer(Model):
 
         self.attribute_map = {
             'answer': 'answer',
-            'full_text_answer': 'fullTextAnswer',
             'experiment_id': 'experimentId',
-            'user_id': 'userId',
-            'exercise_id': 'exerciseId',
+            'image_id': 'imageId',
+            'text_id': 'textId',
             'time': 'time',
             'time_to_click': 'timeToClick',
             'time_to_submit': 'timeToSubmit'
         }
 
         self._answer = answer
-        self._full_text_answer = full_text_answer
         self._experiment_id = experiment_id
-        self._user_id = user_id
-        self._exercise_id = exercise_id
+        self._image_id = image_id
+        self._text_id = text_id
         self._time = time
         self._time_to_click = time_to_click
         self._time_to_submit = time_to_submit
@@ -89,27 +86,6 @@ class ExerciseAnswer(Model):
         self._answer = answer
 
     @property
-    def full_text_answer(self) -> str:
-        """Gets the full_text_answer of this ExerciseAnswer.
-
-
-        :return: The full_text_answer of this ExerciseAnswer.
-        :rtype: str
-        """
-        return self._full_text_answer
-
-    @full_text_answer.setter
-    def full_text_answer(self, full_text_answer: str):
-        """Sets the full_text_answer of this ExerciseAnswer.
-
-
-        :param answer: The full_text_answer of this ExerciseAnswer.
-        :type answer: str
-        """
-
-        self._full_text_answer = full_text_answer
-
-    @property
     def experiment_id(self) -> int:
         """Gets the experiment_id of this ExerciseAnswer.
 
@@ -131,46 +107,46 @@ class ExerciseAnswer(Model):
         self._experiment_id = experiment_id
 
     @property
-    def user_id(self) -> int:
-        """Gets the user_id of this ExerciseAnswer.
+    def image_id(self) -> int:
+        """Gets the image_id of this ExerciseAnswer.
 
 
-        :return: The user_id of this ExerciseAnswer.
+        :return: The image_id of this ExerciseAnswer.
         :rtype: int
         """
-        return self._user_id
+        return self._image_id
 
-    @user_id.setter
-    def user_id(self, user_id: int):
-        """Sets the user_id of this ExerciseAnswer.
+    @image_id.setter
+    def image_id(self, image_id: int):
+        """Sets the image_id of this ExerciseAnswer.
 
 
-        :param user_id: The user_id of this ExerciseAnswer.
-        :type user_id: int
+        :param image_id: The image_id of this ExerciseAnswer.
+        :type image_id: int
         """
 
-        self._user_id = user_id
+        self._image_id = image_id
 
     @property
-    def exercise_id(self) -> int:
-        """Gets the exercise_id of this ExerciseAnswer.
+    def text_id(self) -> int:
+        """Gets the text_id of this ExerciseAnswer.
 
 
-        :return: The exercise_id of this ExerciseAnswer.
+        :return: The text_id of this ExerciseAnswer.
         :rtype: int
         """
-        return self._exercise_id
+        return self._text_id
 
-    @exercise_id.setter
-    def exercise_id(self, exercise_id: int):
-        """Sets the exercise_id of this ExerciseAnswer.
+    @text_id.setter
+    def text_id(self, text_id: int):
+        """Sets the text_id of this ExerciseAnswer.
 
 
-        :param exercise_id: The exercise_id of this ExerciseAnswer.
-        :type exercise_id: int
+        :param text_id: The text_id of this ExerciseAnswer.
+        :type text_id: int
         """
 
-        self._exercise_id = exercise_id
+        self._text_id = text_id
 
     @property
     def time(self) -> datetime:
