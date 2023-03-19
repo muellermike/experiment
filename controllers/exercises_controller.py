@@ -1,11 +1,8 @@
 from cgitb import reset
-from unittest import result
-import six
 
 from flask import Blueprint, request, jsonify
 from services.exercise_service import update_exercise_answer
 from models.exercise_answer import ExerciseAnswer
-import util
 
 exercises_endpoint = Blueprint('exercises_endpoint', __name__)
 

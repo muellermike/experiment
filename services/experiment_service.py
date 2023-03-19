@@ -1,7 +1,7 @@
 from flask import current_app
-from datalayers.experiment_datalayer import load_user_experiment, get_experiment_by_name, store_experiment_participation, store_experiment_exercises, update_experiment_endtime
+from datalayers.experiment_datalayer import get_experiment_by_name, store_experiment_participation, store_experiment_exercises, update_experiment_endtime
 from models.experiment import Experiment
-from services.exercise_service import get_exercises, get_experiment_exercises
+from services.exercise_service import get_experiment_exercises
 from services.user_service import find_user_by_id
 
 def create_experiment(experiment: Experiment):

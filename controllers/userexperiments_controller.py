@@ -1,9 +1,6 @@
 from crypt import methods
-from unittest import result
-import six
 from flask import Blueprint, abort, request, jsonify
 from models.experiment import Experiment  # noqa: E501
-import util
 from services.exercise_service import get_next_random_exercise
 from services.experiment_service import create_experiment, update_experiment
 
