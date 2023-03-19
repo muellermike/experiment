@@ -18,7 +18,7 @@ def load_random_exercises(exercise_type: str, experiment_id: int, number_of_exer
     Load a number of random exercises
     """
     sql = ""
-    print("load random exercises")
+    
     # load n exercises of type exercise_type in a random order
     if(exercise_type == "text"):
         sql = "SELECT PK FROM Text WHERE ExperimentFK = %s ORDER BY RAND() LIMIT %s"

@@ -17,7 +17,6 @@ def add_experiment_participation():  # noqa: E501
 
     :rtype: None
     """
-    print(request.get_json())
     body = Experiment.from_dict(request.get_json())  # noqa: E501
     result = create_experiment(body)
 
@@ -63,7 +62,6 @@ def get_next_exercise(experiment_id):  # noqa: E501
     elif not result:
         return ('', 204)
     
-    print(result)
     # bring response in the required format
     exercise = {
         "text": {

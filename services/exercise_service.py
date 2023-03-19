@@ -55,8 +55,6 @@ def update_exercise_answer(exercise: ExerciseAnswer):
     
     # check that this exercise has not been answered yet
     ex = load_experiment_exercise(exercise.experiment_id, exercise.text_id, exercise.image_id)
-
-    print(ex)
     
     # if exercise hasn't been found or is already anwered, than return None
     if not ex or ex[0]["Answer"] is not None is not None:
