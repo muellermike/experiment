@@ -1,5 +1,5 @@
 from flask import current_app
-from datalayers.experiment_datalayer import get_experiment_by_name, store_experiment_participation, store_experiment_exercises, update_experiment_endtime
+from datalayers.experiment_datalayer import get_experiment_by_name, store_experiment_participation, store_experiment_exercises, update_experiment_endtime, load_experiment_questions
 from models.experiment import Experiment
 from services.exercise_service import get_experiment_exercises
 from services.user_service import find_user_by_id
@@ -25,6 +25,13 @@ def create_experiment(experiment: Experiment):
     
     store_experiment_exercises(exercises, experiment)
     
+    return result
+
+def get_experiment_questions(experiment_id: int):
+    """
+    Loads the questions of an experiment. If there is no experiment for the provided participation id None is returned.
+    """
+    result = load_experiment_questions(experiment_id)
     return result
 
 def update_experiment(experiment: Experiment):

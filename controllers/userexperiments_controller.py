@@ -2,7 +2,7 @@ from crypt import methods
 from flask import Blueprint, abort, request, jsonify
 from models.experiment import Experiment  # noqa: E501
 from services.exercise_service import get_next_random_exercise
-from services.experiment_service import create_experiment, update_experiment
+from services.experiment_service import create_experiment, update_experiment, get_experiment_questions
 
 experiments_endpoint = Blueprint('experiments_endpoint', __name__)
 
@@ -40,6 +40,22 @@ def update_experiment_endpoint(experiment_id):
 
     result = True
     return jsonify(result)
+
+@experiments_endpoint.route('/experiment-participations/<experiment_id>', methods=['GET'])
+def get_experiment_questions_endpoint(experiment_id):
+    """
+    Get the questions for one experiment participation
+    """
+    questions = get_experiment_questions(experiment_id)
+
+    # if result is None than there is no experiment for the experimentid and userid
+    if questions is None:
+        abort(404, "No experiment found with provided parameters")
+    # if result is () than there are no more exercises to answer
+    elif not questions:
+        return ('', 204)
+    
+    return jsonify(questions)
 
 @experiments_endpoint.route('/experiment-participations/<experiment_id>/exercises/next', methods=['GET'])
 def get_next_exercise(experiment_id):  # noqa: E501

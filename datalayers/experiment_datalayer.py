@@ -15,6 +15,15 @@ def get_experiment_by_name(experiment_name: str):
     
     return userexperiment_id[0]['PK']
 
+def load_experiment_questions(experiment_id: int):
+    """
+    Get the experiment question by the participation id
+    """
+    sql = "SELECT Questions FROM Experiment e JOIN ExperimentParticipation ep ON e.PK = ep.ExperimentFK WHERE ep.PK = %s"
+    questions = execute(sql, (experiment_id), "SELECT")
+
+    return questions
+
 def store_experiment_participation(user_experiment: Experiment, experiment_id: int):
     """
     Store experiment with the information into the database
