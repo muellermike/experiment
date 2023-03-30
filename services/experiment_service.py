@@ -32,7 +32,12 @@ def get_experiment_questions(experiment_id: int):
     Loads the questions of an experiment. If there is no experiment for the provided participation id None is returned.
     """
     result = load_experiment_questions(experiment_id)
-    return result
+
+    # since there is only one object for questions take the first one
+    retValue = {
+        "questions": result[0]["Questions"]
+    }
+    return retValue
 
 def update_experiment(experiment: Experiment):
     """

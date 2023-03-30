@@ -4,7 +4,7 @@ def load_next_random_exercise(experimentId: int):
     """
     Load the next random exercise which has not been answered yet.
     """
-    sql = "SELECT t.PK as TextID, t.Text, i.PK as ImageID, i.Mimetype, i.EncodedString FROM ExperimentParticipationExercise as epe JOIN Text as t ON epe.TextFK = t.PK JOIN Image as i ON epe.ImageFK = i.PK WHERE epe.ExperimentParticipationFK = %s AND epe.Answer IS NULL ORDER BY RAND() LIMIT 1"
+    sql = "SELECT t.PK as TextID, t.Text, i.PK as ImageID, i.TopText, i.Mimetype, i.EncodedString FROM ExperimentParticipationExercise as epe JOIN Text as t ON epe.TextFK = t.PK JOIN Image as i ON epe.ImageFK = i.PK WHERE epe.ExperimentParticipationFK = %s AND epe.Answer IS NULL ORDER BY RAND() LIMIT 1"
     
     loaded_exercise = execute(sql, (experimentId), "SELECT")
     
