@@ -12,7 +12,7 @@ def get_experiment_by_name(experiment_name: str):
 
     if (not userexperiment_id):
         return None
-    
+
     return userexperiment_id[0]['PK']
 
 def load_experiment_questions(experiment_id: int):
@@ -20,6 +20,15 @@ def load_experiment_questions(experiment_id: int):
     Get the experiment question by the participation id
     """
     sql = "SELECT Questions FROM Experiment e JOIN ExperimentParticipation ep ON e.PK = ep.ExperimentFK WHERE ep.PK = %s"
+    questions = execute(sql, (experiment_id), "SELECT")
+
+    return questions
+
+def load_experiment_questions_for_experiment(experiment_id: int):
+    """
+    Get the experiment question by the participation id
+    """
+    sql = "SELECT Questions FROM Experiment e WHERE e.PK = %s"
     questions = execute(sql, (experiment_id), "SELECT")
 
     return questions
@@ -95,5 +104,17 @@ def load_experiment_exercise(experiment_id: int, text_id: int, image_id: int):
 
     # execute sql statement
     result = execute(sql, (experiment_id, text_id, image_id), "SELECT")
+
+    return result
+
+def load_responses_by_experiment_id(experiment_id: int):
+    """
+    Load all responses of an experiment
+    """
+    # sql statement for the selection
+    sql = "SELECT ep.PK as ParticipationID, ep.OriginID as tic, ep.IsTestUser, ep.Start as ExperimentStart, ep.End as ExperimentEnd, epe.DateGenerated, epe.AnswerStoredTimestamp, t.PK as TextID, t.ShortText, i.PK as ImageID, i.Number as ImageNumber, i.Filename, epe.Answer FROM ExperimentParticipationExercise epe JOIN ExperimentParticipation ep ON epe.ExperimentParticipationFK = ep.PK JOIN Text t ON epe.TextFK = t.PK JOIN Image i ON epe.ImageFK = i.PK WHERE ep.ExperimentFK = %s"
+
+    # execute sql statement
+    result = execute(sql, (experiment_id), "SELECT")
 
     return result
