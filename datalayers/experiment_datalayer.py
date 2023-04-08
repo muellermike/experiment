@@ -112,7 +112,7 @@ def load_responses_by_experiment_id(experiment_id: int):
     Load all responses of an experiment
     """
     # sql statement for the selection
-    sql = "SELECT ep.PK as ParticipationID, ep.OriginID as tic, ep.IsTestUser, ep.Start as ExperimentStart, ep.End as ExperimentEnd, epe.DateGenerated, epe.AnswerStoredTimestamp, t.PK as TextID, t.ShortText, i.PK as ImageID, i.Number as ImageNumber, i.Filename, epe.Answer FROM ExperimentParticipationExercise epe JOIN ExperimentParticipation ep ON epe.ExperimentParticipationFK = ep.PK JOIN Text t ON epe.TextFK = t.PK JOIN Image i ON epe.ImageFK = i.PK WHERE ep.ExperimentFK = %s"
+    sql = "SELECT ep.PK as ParticipationID, ep.OriginID as tic, ep.IsTestUser, ep.Start as ExperimentStart, ep.End as ExperimentEnd, epe.DateGenerated, epe.AnswerStoredTimestamp, t.PK as TextID, t.ShortText, i.PK as ImageID, i.Number as ImageNumber, i.Filename, epe.Answer FROM ExperimentParticipationExercise epe JOIN ExperimentParticipation ep ON epe.ExperimentParticipationFK = ep.PK JOIN Text t ON epe.TextFK = t.PK JOIN Image i ON epe.ImageFK = i.PK WHERE ep.ExperimentFK = %s ORDER BY ep.OriginID"
 
     # execute sql statement
     result = execute(sql, (experiment_id), "SELECT")
