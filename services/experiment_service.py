@@ -80,7 +80,7 @@ def get_experiment_data_headers(experiment_id: int):
 
     data = json.loads(questions[0]['Questions'])
 
-    sorted_columns = ['tic', 'isTestUser', 'experimentStart', 'experimentEnd', 'dateGenerated', 'answerStoredTimestamp', 'textID', 'textShortName', 'imageID', 'imageFilename']
+    sorted_columns = ['tic', 'participationID', 'isTestUser', 'experimentStart', 'experimentEnd', 'dateGenerated', 'answerStoredTimestamp', 'textID', 'textShortName', 'imageID', 'imageFilename']
     data_types = {}
 
     # iterate through experiment groups
@@ -113,6 +113,7 @@ def get_experiment_responses(experiment_id: int, columns: list, data_type: dict)
         answer_entry = {}
         # get general response information
         answer_entry['tic'] = res.get('tic')
+        answer_entry['participationID'] = res.get('ParticipationID')
         answer_entry['isTestUser'] = res.get('IsTestUser')
         answer_entry['experimentStart'] = res.get('ExperimentStart')
         answer_entry['experimentEnd'] = res.get('ExperimentEnd')
