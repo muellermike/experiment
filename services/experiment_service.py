@@ -11,12 +11,12 @@ def create_experiment(experiment: Experiment):
     is established by inserting a userexperiment in the database. 
     After positive, random 12 questions of each task are loaded and stored into the database.
     """
-    experiment = load_experiment_by_name(experiment.experiment_name)
+    experiment_info = load_experiment_by_name(experiment.experiment_name)
 
-    if(experiment['PK'] is None):
+    if(experiment_info['PK'] is None):
         return None
     
-    experiment_id = experiment['PK']
+    experiment_id = experiment_info['PK']
     
     # the user-experiment connection is stored with the corresponding foreign keys.
     result = store_experiment_participation(experiment, experiment_id)
@@ -24,7 +24,7 @@ def create_experiment(experiment: Experiment):
     # save the generated participation id into the experiment object
     experiment.id = result
     
-    exercises = get_experiment_exercises(experiment['NumberOfExercises'], experiment_id)
+    exercises = get_experiment_exercises(experiment_info['NumberOfExercises'], experiment_id)
     
     store_experiment_exercises(exercises, experiment)
     
