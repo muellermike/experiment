@@ -24,7 +24,7 @@ def create_experiment(experiment: Experiment):
     # save the generated participation id into the experiment object
     experiment.id = result
     
-    exercises = get_experiment_exercises(current_app.config["NUMBER_OF_EXERCISES"], experiment_id)
+    exercises = get_experiment_exercises(experiment['NumberOfExercises'], experiment_id)
     
     store_experiment_exercises(exercises, experiment)
     
