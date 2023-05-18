@@ -4,9 +4,9 @@ from models.experiment import Experiment  # noqa: E501
 from services.exercise_service import get_next_random_exercise
 from services.experiment_service import create_experiment, update_experiment, get_experiment_questions
 
-experiments_endpoint = Blueprint('experiments_endpoint', __name__)
+userexperiments_endpoint = Blueprint('userexperiments_endpoint', __name__)
 
-@experiments_endpoint.route('/experiment-participations', methods=['POST'])
+@userexperiments_endpoint.route('/experiment-participations', methods=['POST'])
 def add_experiment_participation():  # noqa: E501
     """Add a new experiment to a user
 
@@ -25,7 +25,7 @@ def add_experiment_participation():  # noqa: E501
 
     return jsonify(result)
 
-@experiments_endpoint.route('/experiment-participations/<experiment_id>', methods=['PUT'])
+@userexperiments_endpoint.route('/experiment-participations/<experiment_id>', methods=['PUT'])
 def update_experiment_endpoint(experiment_id):
     # it is only allowed to update the endtime of the experiment
     body = Experiment.from_dict(request.get_json())
@@ -41,7 +41,7 @@ def update_experiment_endpoint(experiment_id):
     result = True
     return jsonify(result)
 
-@experiments_endpoint.route('/experiment-participations/<experiment_id>', methods=['GET'])
+@userexperiments_endpoint.route('/experiment-participations/<experiment_id>', methods=['GET'])
 def get_experiment_questions_endpoint(experiment_id):
     """
     Get the questions for one experiment participation
@@ -57,7 +57,7 @@ def get_experiment_questions_endpoint(experiment_id):
     
     return jsonify(questions)
 
-@experiments_endpoint.route('/experiment-participations/<experiment_id>/exercises/next', methods=['GET'])
+@userexperiments_endpoint.route('/experiment-participations/<experiment_id>/exercises/next', methods=['GET'])
 def get_next_exercise(experiment_id):  # noqa: E501
     """Get next exercise for this specific experiment of this user
 

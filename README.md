@@ -6,6 +6,26 @@ A Django sample application is also available for the article at [https://github
 
 If you need an Azure account, you can [create on for free](https://azure.microsoft.com/en-us/free/).
 
+# Endpoints
+Describes all available endpoints with their use case.
+
+## Userexperiments Controller
+### add experiment participation
+Use Case: when a user opens the platform a experiment participation is created. This includes defining the exercises to solve for the participant. Random exercises are allocated according to the number of exercises of an experiment.
+
+### update experiment participation
+Use Case: when a user finishes the experiment participation the endtime of the experiment can be stored into the database.
+
+### get experiment questions
+Use Case: for one specific participation the questions of the related experiment are loaded to be shown to the user.
+
+### get next exercise
+Use Case: load a random new exercise for a participation.
+
+## Exercises Controller
+### update exercise
+Use Case: answer of one exercise can be stored into the database.
+
 `python3 -m venv .venv`
 `source .venv/bin/activate`
 

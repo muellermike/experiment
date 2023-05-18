@@ -3,17 +3,18 @@ from datalayers.db import execute
 from models.exercise_answer import ExerciseAnswer
 from models.experiment import Experiment
 
-def get_experiment_by_name(experiment_name: str):
+def load_experiment_by_name(experiment_name: str):
     """
-    Get an experiment by its name
+    Get experiment information by its name but only return first found experiment.
+    Experiment name should be unique in db.
     """
-    sql = "SELECT PK FROM Experiment WHERE ExperimentName = %s"
+    sql = "SELECT PK, NumberOfExercises, NextText, Introduction FROM Experiment WHERE ExperimentName = %s"
     userexperiment_id = execute(sql, (experiment_name), "SELECT")
 
     if (not userexperiment_id):
         return None
 
-    return userexperiment_id[0]['PK']
+    return userexperiment_id[0]
 
 def load_experiment_questions(experiment_id: int):
     """

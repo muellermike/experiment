@@ -1,5 +1,5 @@
 from flask import current_app
-from datalayers.experiment_datalayer import get_experiment_by_name, store_experiment_participation, store_experiment_exercises, update_experiment_endtime, load_experiment_questions, load_experiment_questions_for_experiment, load_responses_by_experiment_id
+from datalayers.experiment_datalayer import load_experiment_by_name, store_experiment_participation, store_experiment_exercises, update_experiment_endtime, load_experiment_questions, load_experiment_questions_for_experiment, load_responses_by_experiment_id
 from models.experiment import Experiment
 from services.exercise_service import get_experiment_exercises
 import json
@@ -11,10 +11,12 @@ def create_experiment(experiment: Experiment):
     is established by inserting a userexperiment in the database. 
     After positive, random 12 questions of each task are loaded and stored into the database.
     """
-    experiment_id = get_experiment_by_name(experiment.experiment_name)
+    experiment = load_experiment_by_name(experiment.experiment_name)
 
-    if(experiment_id is None):
+    if(experiment['PK'] is None):
         return None
+    
+    experiment_id = experiment['PK']
     
     # the user-experiment connection is stored with the corresponding foreign keys.
     result = store_experiment_participation(experiment, experiment_id)
@@ -51,27 +53,19 @@ def update_experiment(experiment: Experiment):
     return result
 
 def download_experiment_data(experiment_name: str):
-    experiment_id = get_experiment_by_name_service(experiment_name)
+    experiment_id = get_experiment_by_name_service(experiment_name)['PK']
 
     columns, data_types = get_experiment_data_headers(experiment_id)
 
     responses = get_experiment_responses(experiment_id, columns, data_types)
 
-    #pd.DataFrame([flat_data])
-    #df = pd.DataFrame(sorted_columns)
-    #data = {'col1': ['a1', 'a2', 'a3'],
-    #    'col2': ['b1', 'b2', 'b3'],
-    #    'col3': ['c1', 'c2', 'c3']}
-
-    #df = pd.DataFrame(data)
     return pd.concat(responses, ignore_index= True)
-    #return pd.concat(df, ignore_index=True)
 
 def get_experiment_by_name_service(experiment_name: str):
     """
-    Loads the questions of an experiment. If there is no experiment for the provided participation id None is returned.
+    Loads the information of an experiment. If there is no experiment for the provided participation id None is returned.
     """
-    result = get_experiment_by_name(experiment_name)
+    result = load_experiment_by_name(experiment_name)
 
     return result
 

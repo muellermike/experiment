@@ -4,12 +4,14 @@ from flask import Flask, render_template, request, redirect, url_for, send_from_
 from flask_cors import CORS
 from controllers.users_controller import users_endpoint
 from controllers.exercises_controller import exercises_endpoint
-from controllers.userexperiments_controller import experiments_endpoint
+from controllers.userexperiments_controller import userexperiments_endpoint
+from controllers.experiments_controller import experiments_endpoint
 from services.experiment_service import download_experiment_data
 
 app = Flask(__name__)
 app.register_blueprint(users_endpoint)
 app.register_blueprint(exercises_endpoint)
+app.register_blueprint(userexperiments_endpoint)
 app.register_blueprint(experiments_endpoint)
 
 CORS(app)
@@ -41,12 +43,6 @@ def download():
    df = download_experiment_data(name)
 
    return create_csv(df)
-   #if name:
-   #    print('Request for hello page received with name=%s' % name)
-   #    return render_template('hello.html', name = name)
-   #else:
-   #    print('Request for hello page received with no name or blank name -- redirecting')
-   #    return redirect(url_for('index'))
 
 def create_csv(df):
     csv_data = df.to_csv(index=False)
