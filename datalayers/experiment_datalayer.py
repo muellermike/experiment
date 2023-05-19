@@ -8,7 +8,7 @@ def load_experiment_by_name(experiment_name: str):
     Get experiment information by its name but only return first found experiment.
     Experiment name should be unique in db.
     """
-    sql = "SELECT PK, NumberOfExercises, NextText, Introduction FROM Experiment WHERE ExperimentName = %s"
+    sql = "SELECT PK, NumberOfExercises, NextText, Introduction, FinalPageTexts FROM Experiment WHERE ExperimentName = %s"
     userexperiment_id = execute(sql, (experiment_name), "SELECT")
 
     if (not userexperiment_id):

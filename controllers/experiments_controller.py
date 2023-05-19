@@ -24,7 +24,8 @@ def get_experiment_information_endpoint(experiment_name):
     experiment = {
         "introduction": experiment_info["Introduction"],
         "nextButtonText": experiment_info["NextText"],
-        "numOfExercises": experiment_info["NumberOfExercises"]
+        "numOfExercises": experiment_info["NumberOfExercises"],
+        "finalPage": experiment_info["FinalPageTexts"]
     }
 
     return jsonify(experiment)
