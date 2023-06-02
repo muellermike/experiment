@@ -88,7 +88,8 @@ def get_next_exercise(experiment_id):  # noqa: E501
             "imageId": result["ImageID"],
             "mimeType": result["Mimetype"],
             "topText": result["TopText"],
-            "encodedString": result["EncodedString"]
+            "encodedString": result["EncodedString"],
+            "maxImageSize": result["ImageSize"]
         }
     }
 
